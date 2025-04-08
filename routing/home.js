@@ -1,14 +1,18 @@
-const path = require("path");
-
 const express = require("express");
-
 const router = express.Router();
 
-// 🔄 Refactoro the Changer
-// Funkcja "response.sendFile" nie jest odpowiednia do zwracania widoków generowanych przez
-// większość silników szablonów. Należy ją zastąpić, inną odpowiednią metodą.
+const MENU_LINKS = [
+  { path: '/product/add', label: 'Add product' },
+  { path: '/product/new', label: 'Newest product' },
+  { path: '/logout', label: 'Logout' }
+];
+
 router.get("/", (_request, response) => {
-  response.sendFile(path.join(__dirname, "../views", "home.html"));
+  response.render("home", {
+    headTitle: "Home Page",
+    MENU_LINKS: MENU_LINKS,  // Przekazanie MENU_LINKS do widoku
+    activeLinkPath: '/'  // Przekazanie aktywnej ścieżki
+  });
 });
 
 module.exports = router;
